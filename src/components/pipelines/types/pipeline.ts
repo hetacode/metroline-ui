@@ -34,6 +34,7 @@ export interface Commit {
 
 export interface Pipeline {
   _id?: string;
+  name?: string;
   repoId: string;
   createdAt: Date;
   cancelledAt?: Date;

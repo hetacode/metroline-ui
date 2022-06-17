@@ -28,6 +28,13 @@ export function PipelineCard({ pipeline, raised }: { pipeline; raised? }) {
         </div>
       </div>
       <div className={styles.commit}>
+        <small className="text-muted">
+          Pipeline:
+          {' '}
+          <strong>{pipeline.name}</strong>
+        </small>
+      </div>
+      <div className={styles.commit}>
         <Commit commit={pipeline.commit} />
       </div>
     </div>
