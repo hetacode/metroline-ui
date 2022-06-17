@@ -15,6 +15,13 @@ export function PipelineListItem({ pipeline }: { pipeline }) {
           <span className={`ml-3 ${styles['commit-message']}`}>{pipeline.commit.message}</span>
         </div>
         <div className={styles.commit}>
+          <small className="text-muted">
+            Pipeline:
+            {' '}
+            <strong>{pipeline.name}</strong>
+          </small>
+        </div>
+        <div className={styles.commit}>
           <Commit commit={pipeline.commit} />
         </div>
       </div>

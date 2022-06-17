@@ -14,6 +14,18 @@ export function useRepoPipeline(repoId, initialValue?) {
   return [pipeline, setPipeline];
 }
 
+export function useRepoDeletePipeline(repoId, initialValue?) {
+  const socket = useSocket();
+
+  const [pipelineId, setPipelineId] = useState(initialValue);
+
+  useEffect(() => emitNowAndOnReconnect(socket, () => socket.emit('join.repo', repoId)), [socket, repoId]);
+
+  useEffect(() => listen(socket, `repo.${repoId}.deletePipeline`, setPipelineId), [socket, repoId]);
+
+  return [pipelineId, setPipelineId];
+}
+
 export function useRepoLastUpdate(repoId, initialValue?) {
   const socket = useSocket();
 

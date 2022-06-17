@@ -9,7 +9,7 @@ import { defaultPagination, PaginationData } from '../../../commons/components/P
 import { PipelineListItem } from './PipelineListItem';
 import { Page } from '../../../commons/models/page';
 import { LoadMore } from './LoadMore';
-import { useRepoPipeline } from '../../repos/live-repo';
+import { useRepoPipeline, useRepoDeletePipeline } from '../../repos/live-repo';
 import { EmptyList } from '../../../commons/components/EmptyList';
 import { PipelineIcon } from '../../icons/PipelineIcon';
 
@@ -50,6 +50,7 @@ export function PipelineList() {
   }, [setLoading, env, repoId, paginationData]);
 
   const [repoPipeline] = useRepoPipeline(repoId);
+  const [repoDeletePipelineId] = useRepoDeletePipeline(repoId);
 
   useEffect(() => {
     if (repoPipeline) {
@@ -57,6 +58,13 @@ export function PipelineList() {
       setPages([...pagesRef.current]);
     }
   }, [repoPipeline]);
+
+  useEffect(() => {
+    if (repoDeletePipelineId) {
+      pagesRef.current[0].items = pagesRef.current[0].items.filter(f => f._id !== repoDeletePipelineId);
+      setPages([...pagesRef.current]);
+    }
+  }, [repoDeletePipelineId]);
 
   const loadMore = () => {
     setPaginationData({
